@@ -37,6 +37,8 @@ services:
   telegraf:
     image: telegraf:latest
     container_name: telegraf
+    environment:
+      - INFLUX_TOKEN=${INFLUX_TOKEN}
     depends_on:
       - mosquitto
       - influxdb
