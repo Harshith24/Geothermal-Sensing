@@ -39,7 +39,15 @@ Persistence: InfluxDB stores the data in a Time-Series Bucket. Unlike a traditio
 
 5. Visualization (UI)
 Querying: The InfluxDB Dashboard (or Grafana) runs Flux queries to pull the data from the bucket and render it into real-time line charts or gauges.
-LEt's just ignore grafana for now, we got a dashboard working on influxDB. 
+LEt's just ignore grafana for now, we got a dashboard working on influxDB.
+
+# debugging
+verifying the broker is receiving data from the esp32 directly from looking at the container logs: `docker exec -it mosquitto mosquitto_sub -h localhost -t "sensors/#" -v`
+<img width="145" height="81" alt="image" src="https://github.com/user-attachments/assets/ba2d1f70-a3e9-44ed-aeb1-ea2fa520740b" />
+
+verifying if telegraf (mqtt consumer) is able to connect to mosquitto (running on 1883) and loading the influxdb output: `docker logs telegraf`
+<img width="953" height="187" alt="image" src="https://github.com/user-attachments/assets/4be136e9-435b-45e2-a7a4-002ad8f54440" />
+
 
 # next steps
 1. Figure out placement of the sensors
