@@ -14,6 +14,9 @@ Thos folder contains the actual workspace for the esp32. this is where im gettin
 # tailscale
 TO access the influxDB dashboard outside of the local network, we use `tailscale VPN` to access it from outside. On the free tier it supports 100 devices and 3 users. essentially enter the tailnet IP followed by the port you want to check. TO access the influx DB from outside the network, enter `100.64.205.82:8086` since the influx DB runs on port 8086.
 
+## setup
+the server that is running the containers should have tailscale installed first. The owner should authenticate with their email on that device. They can add other devices like their phone by installing the tailscale app and authenticating with the same email. Other users (external) should also install tailscale app and authenticate and the owner should add their email to their server network. 
+
 # workflow
 The system follows a decoupled, event-driven architecture to ensure data is captured reliably and stored for long-term analysis.
 
