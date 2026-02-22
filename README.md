@@ -1,4 +1,7 @@
-# influx DB 
+# Geothermal Sensor - ESP32 firmware code
+Thos folder contains the actual workspace for the esp32. this is where im getting the sensor data, connecting the esp32 to wifi, and sending it over to the broker.
+
+# Server - influx DB 
 
 ## 2 sensors values data expoler:
 <img width="1182" height="247" alt="image" src="https://github.com/user-attachments/assets/07809bc9-228f-454a-bd42-72cbcf0e2b13" />
@@ -9,7 +12,7 @@
 
 
 # tailscale
-TO access the influxDB dashboard outside of the local network, we use `tailscale VPN` to access it from outside. On the free tier it supports 100 devices and 3 users. essentially enter the tailnet IP followed by the port you want to check. TO access the influx B from outside the network, enter `100.64.205.82:8086` since the influx DB runs on port 8086.
+TO access the influxDB dashboard outside of the local network, we use `tailscale VPN` to access it from outside. On the free tier it supports 100 devices and 3 users. essentially enter the tailnet IP followed by the port you want to check. TO access the influx DB from outside the network, enter `100.64.205.82:8086` since the influx DB runs on port 8086.
 
 # workflow
 The system follows a decoupled, event-driven architecture to ensure data is captured reliably and stored for long-term analysis.
