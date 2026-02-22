@@ -1,5 +1,4 @@
 services:
-  # 1. The MQTT Broker
   mosquitto:
     image: eclipse-mosquitto:latest
     container_name: mosquitto
@@ -11,7 +10,6 @@ services:
       - ./mosquitto/data:/mosquitto/data
       - ./mosquitto/log:/mosquitto/log
 
-  # 2. The Database
   influxdb:
     image: influxdb:latest
     container_name: influxdb
@@ -22,11 +20,10 @@ services:
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
       - DOCKER_INFLUXDB_INIT_USERNAME=admin
-      - DOCKER_INFLUXDB_INIT_PASSWORD=password123
+      - DOCKER_INFLUXDB_INIT_PASSWORD=admin
       - DOCKER_INFLUXDB_INIT_ORG=my-iot-org
       - DOCKER_INFLUXDB_INIT_BUCKET=sensors
 
-  # 3. The Visualization
   grafana:
     image: grafana/grafana:latest
     container_name: grafana

@@ -3,15 +3,11 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <PubSubClient.h>
+#include "secrets.h"
 
 const int oneWirePin = 4;
 OneWire oneWire(oneWirePin);
 DallasTemperature sensors(&oneWire);
-
-const char* ssid = "Yugo River Market";       
-const char* password = "LemonGuineaPig34";
-
-const char* mqtt_server = "100.70.63.139"; // Your Laptop's IP
 WiFiClient espClient;
 PubSubClient client(espClient);
 
@@ -19,9 +15,9 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   sensors.begin();
-  client.setServer(mqtt_server, 1883);
+  client.setServer(MQTT_HOST, 1883);
 
-  WiFi.begin(ssid, password);
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
   while (WiFi.status() != WL_CONNECTED) {
       delay(500);
       Serial.print(".");
@@ -46,18 +42,37 @@ void loop() {
   // delay(5000);
 
   if (!client.connected()) {
-    // Reconnect logic here
-    client.connect("ESP32_Temp_Sensor");
+    Serial.print("Attempting MQTT connection...");
+    if (client.connect("ESP32_Temp_Sensor")) {
+      Serial.println("connected");
+    } else {
+      delay(5000);
+      return;
+    }
   }
   client.loop();
 
   sensors.requestTemperatures();
-  float tempC = sensors.getTempCByIndex(0);
   
-  // Convert float to string and publish
-  char tempString[8];
-  dtostrf(tempC, 1, 2, tempString);
-  client.publish("sensors/temperature", tempString);
+  int deviceCount = sensors.getDeviceCount();
+
+  for (int i = 0; i < deviceCount; i++) {
+    float tempC = sensors.getTempCByIndex(i);
+    
+    if (tempC != DEVICE_DISCONNECTED_C) {
+      String topic = "sensors/temp/" + String(i);
+      
+      char tempString[8];
+      dtostrf(tempC, 1, 2, tempString);
+      
+      client.publish(topic.c_str(), tempString);
+      
+      Serial.print("Sensor ");
+      Serial.print(i);
+      Serial.print(": ");
+      Serial.println(tempString);
+    }
+  }
 
   delay(5000);
 }
