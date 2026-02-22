@@ -3,4 +3,4 @@
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/*
-./Geothermal\ Sensing/include/secrets.h 
+Geothermal Sensing/include/secrets.h 
