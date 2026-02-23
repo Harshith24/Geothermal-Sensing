@@ -54,4 +54,5 @@ verifying if telegraf (mqtt consumer) is able to connect to mosquitto (running o
 2. Set Up alerts so we know of any sudden temperature spikes. Alerts can be done through influxdb directly or through pagerduty? will have to explore
 3. Add more sensors to it (currently has 2 but can add more easily)
 4. add option for both Celcius and Fahrenheit
+5. add more esp32 - will need to update `client.connect();` and update `sensors/room1/temp/0` and `sensors/room3/temp/0` in the esp32 `main.cpp` file and update `sensors/+/temp/+` telegraf config file. 
 
