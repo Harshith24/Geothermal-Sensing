@@ -7,9 +7,9 @@ services:
     ports:
       - "1883:1883"
     volumes:
-      - ./mosquitto/config:/mosquitto/config
-      - ./mosquitto/data:/mosquitto/data
-      - ./mosquitto/log:/mosquitto/log
+      - /volume1/docker/geothermal/mosquitto/config:/mosquitto/config
+      - /volume1/docker/geothermal/mosquitto/data:/mosquitto/data
+      - /volume1/docker/geothermal/mosquitto/log:/mosquitto/log
 
   influxdb:
     image: influxdb:latest
@@ -17,7 +17,7 @@ services:
     ports:
       - "8086:8086"
     volumes:
-      - ./influxdb_data:/var/lib/influxdb2
+      - /volume1/docker/geothermal/influxdb_data:/var/lib/influxdb2
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
       - DOCKER_INFLUXDB_INIT_USERNAME=apklop
@@ -32,7 +32,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - grafana_data:/var/lib/grafana
+      - /volume1/docker/geothermal/grafana_data:/var/lib/grafana
 
   telegraf:
     image: telegraf:latest
@@ -41,7 +41,7 @@ services:
       - mosquitto
       - influxdb
     volumes:
-      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - /volume1/docker/geothermal/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
 
 volumes:
   influxdb_data:
